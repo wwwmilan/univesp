@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo de PI - Cadastro de Livros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;  /* fonte do menu */
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;  /* cor do fundo landing */
+        }
+        header {
+            background-color: #333;  /* fundo do titulo */
+            color: #fff;  /* letras do titulo */
+            padding: 10px;  /* altura do titulo */
+            text-align: center;  /* alinhamento do titulo */
+        } 
+        .container {
+            width: 40%;  /* tamanho container */
+            margin: 0 auto; /* alinhamento do container */
+            padding: 10px; /* espaço do container ao menu */
+        }
+        form {
+            background-color: #fff;  /* cor do container */
+            padding: 10px;  /* altura do container */
+            box-shadow: 0 30px 10px rgba(0, 0, 0, 0.1);  /* sombra do container */
+        }
+        label {
+            font-size: 16px;  /* tamanho fonte titulos */
+            margin-bottom: 10px;  /* enpaço nomes titulos */
+            margin-top: 10px;  /* espaço entre os blocos */
+            display: block;  /* tamanho fonte titulos */
+            text-align: left;  /* alinhamento dos titulos */
+        }
+        input[type="text"], input[type="number"] {
+            width: 95%;  /* tamanho blocos horizonte */
+            padding: 10px;  /* tamanho bloco vertice */
+            margin: 20x 0 20px 0;
+            border: 2px solid #4CAF50; /* Cor verde para a borda */
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            width: 25%;
+            padding: 10px; /* altura do botão */
+            margin: 10px 0 20px 0; /* espaço antes e depois do botão */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #4CAF50; /* Cor verde para o botão */
+            color: white; /* Cor branca na letra do botão */
+            cursor: pointer; /* comportamento do mouse sobre o botão */
+        }
+        .book-list {
+            margin-top: 30px;
+        }
+        .book-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .book-list li {
+            background-color: #fff;
+            padding: 10px; /* largura da lista */
+            margin: 5px 0; /* espaço entre o livro e a lista */
+            border-radius: 100px; /* para deixar a lista abaolada 0 para quadrada */
+            box-shadow: 0 1px 5px rgba(0, 500, 0, 5.0); /* afastamento sombra horizonte vertice fumaça cores R G B e sombra */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Grupo de PI - Cadastro de Livros</h1>
+    </header>
+
+    <div class="container">
+        <form id="formCadastro">
+            <label for="titulo">Título do Livro:</label>
+            <input type="text" id="titulo" name="titulo" required>
+
+            <label for="autor">Autor:</label>
+            <input type="text" id="autor" name="autor" required>
+
+            <label for="ano">Ano de Publicação:</label>
+            <input type="number" id="ano" name="ano" required>
+
+            <input type="submit" value="Cadastrar Livro">
+        </form>
+
+        <div class="book-list">
+            <h2>Livros Cadastrados</h2>
+            <ul id="listaLivros"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Array para armazenar os livros cadastrados
+        const livros = [];
+
+        // Função para exibir a lista de livros
+        function exibirLivros() {
+            const listaLivros = document.getElementById("listaLivros");
+            listaLivros.innerHTML = "";
+            livros.forEach(livro => {
+                const li = document.createElement("li");
+                li.textContent = `${livro.titulo} - ${livro.autor} (${livro.ano})`;
+                listaLivros.appendChild(li);
+            });
+        }
+
+        // Função de envio do formulário
+        document.getElementById("formCadastro").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const titulo = document.getElementById("titulo").value;
+            const autor = document.getElementById("autor").value;
+            const ano = document.getElementById("ano").value;
+
+            const livro = {
+                titulo: titulo,
+                autor: autor,
+                ano: ano
+            };
+
+            livros.push(livro); // Adiciona o livro ao array
+            exibirLivros(); // Atualiza a lista de livros
+            document.getElementById("formCadastro").reset(); // Limpa o formulário
+        });
+    </script>
+
+</body>
+</html>
