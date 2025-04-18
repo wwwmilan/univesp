@@ -28,14 +28,6 @@
     </style>
 
     <script>
-        // teste de acertar o padrão do telefone
-        function TelefonePadrao(event) {
-            let telefone = event.target.value.replace(/\D/g, '');
-            let CertificaTelefone = '';
-
-            if (telefone.length > 0) {
-                CertificaTelefone += '(' + telefone.substring(0, 11);
-        }
         // Exibe mensagem após redirecionamento
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
