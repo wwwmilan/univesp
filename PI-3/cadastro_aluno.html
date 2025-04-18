@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro do Aluno</title>
+</head>
+<body>
+    <h1>Cadastro do Aluno</h1>
+    
+    <form action="/cadastrar" method="post">
+        <fieldset>
+            <legend>Dados do Aluno</legend>
+            
+            <div>
+                <label for="nome">Nome completo:</label><br>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            
+            <div>
+                <label for="ra">Número de RA:</label><br>
+                <input type="text" id="ra" name="ra" required>
+            </div>
+            
+            <div>
+                <label for="serie">Série:</label><br>
+                <select id="serie" name="serie" required>
+                    <option value="">Qual o seu ano?</option>
+                    <option value="1">6º Ano</option>
+                    <option value="2">7º Ano</option>
+                    <option value="3">8º Ano</option>
+                    <option value="4">9º Ano</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="turma">Turma:</label><br>
+                <input type="text" id="turma" name="turma" required>
+            </div>
+            
+            <div>
+                <label for="telefone">Telefone:</label><br>
+                <input type="tel" id="telefone" name="telefone" required>
+            </div>
+            
+            <div>
+                <button type="submit">Cadastrar</button>
+                <button type="reset">Limpar</button>
+            </div>
+        </fieldset>
+    </form>
+    
+    <footer>
+        <p>Sistema de troca de livros - Turma 2025 - Powered by DRP01-pji310-grupo-006</p>
+    </footer>
+</body>
+</html>
