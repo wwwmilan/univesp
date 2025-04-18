@@ -1,9 +1,9 @@
 <?php
 // ConexoesComDb
-$host = "localhost";
-$usuario = "wsl";
-$senha = "wsl";
-$banco = "univesp.sql";
+$host = "sql109.infinityfree.com";
+$usuario = "if0_38781370";
+$senha = "Univesp2025";
+$banco = "if0_38781370_XXX";
 
 $conexao = new mysqli($host, $usuario, $senha, $banco);
 
