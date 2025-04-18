@@ -3,7 +3,7 @@
 $host = "localhost";
 $usuario = "wsl";
 $senha = "wsl";
-$banco = "univesp";
+$banco = "univesp.sql";
 
 $conexao = new mysqli($host, $usuario, $senha, $banco);
 
