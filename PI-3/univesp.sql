@@ -4,6 +4,6 @@ CREATE TABLE alunos (
     ra VARCHAR(20) NOT NULL UNIQUE,
     serie VARCHAR(2) NOT NULL,
     turma VARCHAR(10) NOT NULL,
-    telefone VARCHAR(15) NOT NULL,
+    telefone VARCHAR(15) NOT NULL CHECK (telefone REGEXP '^\\([0-9]{2}\\)[0-9]{4,5}-[0-9]{4}$'),
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

@@ -7,27 +7,35 @@ $banco = "univesp";
 
 $conexao = new mysqli($host, $usuario, $senha, $banco);
 
-// PegandoDadosDoFormulario
-$nome = $_POST['nome'];
-$ra = $_POST['ra'];
-$serie = $_POST['serie'];
-$turma = $_POST['turma'];
-$telefone = $_POST['telefone'];
+// Verifica se o formulário foi submetido
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // PegandoDadosDoFormulario
+    $nome = $_POST['nome'];
+    $ra = $_POST['ra'];
+    $serie = $_POST['serie'];
+    $turma = $_POST['turma'];
+    $telefone = $_POST['telefone'];
 
-// AbreSessaoSqleGrava
-$sql = "INSERT INTO alunos (nome, ra, serie, turma, telefone) 
-        VALUES (?, ?, ?, ?, ?)";
+    // AbreSessaoSqleGrava
+    $sql = "INSERT INTO alunos (nome, ra, serie, turma, telefone) 
+            VALUES (?, ?, ?, ?, ?)";
 
-$stmt = $conexao->prepare($sql);
-$stmt->bind_param("sssss", $nome, $ra, $serie, $turma, $telefone);
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("sssss", $nome, $ra, $serie, $turma, $telefone);
 
-if ($stmt->execute()) {
-    echo "Você foi cadastrado com sucesso!";
-} else {
-    echo "Erro ao te cadastrar: " . $conexao->error;
+    if ($stmt->execute()) {
+        // Redireciona de volta para o formulário com mensagem de sucesso
+        header("Location: cadastro_aluno.html?status=success");
+        exit();
+    } else {
+        // Redireciona com mensagem de erro
+        header("Location: cadastro_aluno.html?status=error&message=" . urlencode($conexao->error));
+        exit();
+    }
+
+    // FechandoAConexão
+    $stmt->close();
 }
 
-// FechandoAConexão
-$stmt->close();
 $conexao->close();
 ?>

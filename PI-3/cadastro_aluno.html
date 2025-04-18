@@ -4,11 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Aluno - Integração MariaDB</title>
+    <script>
+        // Exibe mensagem após redirecionamento
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            
+            if(status === 'success') {
+                alert('Cadastro realizado com sucesso!');
+                // Limpa os parâmetros da URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } else if(status === 'error') {
+                const message = urlParams.get('message');
+                alert('Erro no cadastro: ' + message);
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        };
+    </script>
 </head>
 <body>
     <h1>Cadastro de Aluno</h1>
     
     <form action="cadastrar.php" method="post">
+        <!-- Restante do seu formulário permanece igual -->
         <fieldset>
             <legend>Dados do Aluno</legend>
             
