@@ -3,7 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Aluno - Integração MariaDB</title>
+    <title>Cadastro de Aluno</title>
+    
+    <style>
+        /* inicio do CSS */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        /* CSS principal da pagina */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+
     <script>
         // Exibe mensagem após redirecionamento
         window.onload = function() {
@@ -12,7 +35,6 @@
             
             if(status === 'success') {
                 alert('Cadastro realizado com sucesso!');
-                // Limpa os parâmetros da URL
                 window.history.replaceState({}, document.title, window.location.pathname);
             } else if(status === 'error') {
                 const message = urlParams.get('message');
@@ -26,7 +48,6 @@
     <h1>Cadastro de Aluno</h1>
     
     <form action="cadastrar.php" method="post">
-        <!-- Restante do seu formulário permanece igual -->
         <fieldset>
             <legend>Dados do Aluno</legend>
             
