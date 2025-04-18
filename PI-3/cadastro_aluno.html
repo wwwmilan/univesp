@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro do Aluno</title>
+    <title>Cadastro de Aluno - Integração MariaDB</title>
 </head>
 <body>
-    <h1>Cadastro do Aluno</h1>
+    <h1>Cadastro de Aluno</h1>
     
-    <form action="/cadastrar" method="post">
+    <form action="cadastrar.php" method="post">
         <fieldset>
             <legend>Dados do Aluno</legend>
             
@@ -23,13 +23,13 @@
             </div>
             
             <div>
-                <label for="serie">Série:</label><br>
+                <label for="serie">Qual seu ano?</label><br>
                 <select id="serie" name="serie" required>
-                    <option value="">Qual o seu ano?</option>
-                    <option value="1">6º Ano</option>
-                    <option value="2">7º Ano</option>
-                    <option value="3">8º Ano</option>
-                    <option value="4">9º Ano</option>
+                    <option value="">Selecione o ano</option>
+                    <option value="1">6º ano</option>
+                    <option value="2">7ª ano</option>
+                    <option value="3">8º ano</option>
+                    <option value="4">9º ano</option>
                 </select>
             </div>
             
@@ -49,9 +49,5 @@
             </div>
         </fieldset>
     </form>
-    
-    <footer>
-        <p>Sistema de troca de livros - Turma 2025 - Powered by DRP01-pji310-grupo-006</p>
-    </footer>
 </body>
 </html>
