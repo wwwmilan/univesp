@@ -125,7 +125,45 @@
                 alert('Erro no cadastro: ' + message);
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
-        };
+        }
+    // função para padronizar o telefone
+    function mascaraTelefone(event) {
+        let telefone = event.target.value.replace(/\D/g, '');
+        let telefoneFormatado = '';
+        
+        if (telefone.length > 0) {
+            telefoneFormatado += '(' + telefone.substring(0, 2);
+        }
+        if (telefone.length > 2) {
+            telefoneFormatado += ')' + telefone.substring(2, 7);
+        }
+        if (telefone.length > 7) {
+            telefoneFormatado += '-' + telefone.substring(7, 11);
+        }
+        
+        event.target.value = telefoneFormatado;
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const telefoneInput = document.getElementById('telefone');
+        telefoneInput.placeholder = '(  )    -    ';
+        
+        telefoneInput.maxLength = 14;
+        
+        telefoneInput.addEventListener('input', mascaraTelefone);
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        
+        if(status === 'success') {
+            alert('Cadastro realizado com sucesso!');
+            window.history.replaceState({}, document.title, window.location.pathname);
+        } else if(status === 'error') {
+            const message = urlParams.get('message');
+            alert('Erro no cadastro: ' + message);
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    });
     </script>
 </head>
 <body>
@@ -163,7 +201,8 @@
             
             <div>
                 <label for="telefone">Telefone:</label><br>
-                <input type="tel" id="telefone" name="telefone" required>
+                <input type="tel" id="telefone" name="telefone" required 
+           placeholder="(  )    -    " maxlength="14">
             </div>
             
             <div>
