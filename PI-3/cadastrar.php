@@ -17,7 +17,7 @@ try {
     // Verifica se o formulário foi submetido
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST['nome']) || empty($_POST['ra']) || empty($_POST['serie']) || 
-            empty($_POST['turma']) || empty($_POST['telefone'])) {
+            empty($_POST['turma']) || empty($_POST['telefone']) || empty($_POST['senha']) || empty($_POST['confirmar_senha'])) {
             throw new Exception("Todos os campos são obrigatórios");
         }
         
@@ -27,16 +27,26 @@ try {
         $turma = $conexao->real_escape_string($_POST['turma']);
         $telefone = $conexao->real_escape_string($_POST['telefone']);
 
-        // Validação específica para RA (7 dígitos)
+        // conferir se o RA tem 7 digitos
         if (!preg_match('/^[0-9]{7}$/', $ra)) {
             throw new Exception("RA deve conter 7 dígitos numéricos");
         }
 
-        // Validação do telefone
+        // conferir se o telefone esta certo
         if (!preg_match('/^\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$/', $telefone)) {
             throw new Exception("Telefone deve estar no formato (xx)xxxx-xxxx ou (xx)xxxxx-xxxx");
 
-            // VERIFICA SE O RA JÁ EXISTE
+        // conferir se confirmou a senha igual
+        if ($senha !== $confirmar_senha) {
+            throw new Exception("As senhas não coincidem");
+        }
+    
+        // conferir se a senha tem 6 caracteres
+        if (strlen($senha) < 6) {
+            throw new Exception("A senha deve ter pelo menos 6 caracteres");
+        }
+
+         // conferir
             $sql_verifica = "SELECT id FROM alunos WHERE ra = ?";
             $stmt_verifica = $conexao->prepare($sql_verifica);
             
