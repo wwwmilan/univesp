@@ -26,6 +26,7 @@ try {
         $serie = $conexao->real_escape_string($_POST['serie']);
         $turma = $conexao->real_escape_string($_POST['turma']);
         $telefone = $conexao->real_escape_string($_POST['telefone']);
+        $senha_hash = password_hash($_POST['senha'], PASSWORD_DEFAULT);
 
         // conferir se o RA tem 7 digitos
         if (!preg_match('/^[0-9]{7}$/', $ra)) {
@@ -35,6 +36,10 @@ try {
         // conferir se o telefone esta certo
         if (!preg_match('/^\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$/', $telefone)) {
             throw new Exception("Telefone deve estar no formato (xx)xxxx-xxxx ou (xx)xxxxx-xxxx");
+
+        if (password_verify($senha_digitada, $hash_do_banco)) {
+            } else {
+            }
 
         // conferir se confirmou a senha igual
         if ($senha !== $confirmar_senha) {
