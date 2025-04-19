@@ -16,27 +16,42 @@ try {
 
     // Verifica se o formulário foi submetido
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Validação dos dados
         if (empty($_POST['nome']) || empty($_POST['ra']) || empty($_POST['serie']) || 
             empty($_POST['turma']) || empty($_POST['telefone'])) {
             throw new Exception("Todos os campos são obrigatórios");
         }
-
-        // PegandoDadosDoFormulario com sanitização
+        
         $nome = $conexao->real_escape_string($_POST['nome']);
         $ra = $conexao->real_escape_string($_POST['ra']);
         $serie = $conexao->real_escape_string($_POST['serie']);
         $turma = $conexao->real_escape_string($_POST['turma']);
         $telefone = $conexao->real_escape_string($_POST['telefone']);
 
-        // Validação específica para RA (5 dígitos)
-        if (!preg_match('/^[0-9]{5}$/', $ra)) {
-            throw new Exception("RA deve conter exatamente 5 dígitos numéricos");
+        // Validação específica para RA (7 dígitos)
+        if (!preg_match('/^[0-9]{7}$/', $ra)) {
+            throw new Exception("RA deve conter 7 dígitos numéricos");
         }
 
         // Validação do telefone
         if (!preg_match('/^\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$/', $telefone)) {
             throw new Exception("Telefone deve estar no formato (xx)xxxx-xxxx ou (xx)xxxxx-xxxx");
+
+            // VERIFICA SE O RA JÁ EXISTE
+            $sql_verifica = "SELECT id FROM alunos WHERE ra = ?";
+            $stmt_verifica = $conexao->prepare($sql_verifica);
+            
+            if (!$stmt_verifica) {
+                throw new Exception("Erro na preparação da query de verificação: " . $conexao->error);
+            }
+    
+            $stmt_verifica->bind_param("s", $ra);
+            $stmt_verifica->execute();
+            $stmt_verifica->store_result();
+            
+            if ($stmt_verifica->num_rows > 0) {
+                throw new Exception("RA já cadastrado no sistema");
+            }
+            $stmt_verifica->close();
         }
 
         // Prepara e executa a query
