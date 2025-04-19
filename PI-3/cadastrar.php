@@ -1,41 +1,72 @@
 <?php
+
 // ConexoesComDb
 $host = "sql109.infinityfree.com";
 $usuario = "if0_38781370";
 $senha = "Univesp2025";
-$banco = "if0_38781370_XXX";
+$banco = "if0_38781370_univesp";
 
-$conexao = new mysqli($host, $usuario, $senha, $banco);
-
-// Verifica se o formulário foi submetido
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // PegandoDadosDoFormulario
-    $nome = $_POST['nome'];
-    $ra = $_POST['ra'];
-    $serie = $_POST['serie'];
-    $turma = $_POST['turma'];
-    $telefone = $_POST['telefone'];
-
-    // AbreSessaoSqleGrava
-    $sql = "INSERT INTO alunos (nome, ra, serie, turma, telefone) 
-            VALUES (?, ?, ?, ?, ?)";
-
-    $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("sssss", $nome, $ra, $serie, $turma, $telefone);
-
-    if ($stmt->execute()) {
-        // Redireciona de volta para o formulário com mensagem de sucesso
-        header("Location: cadastro_aluno.html?status=success");
-        exit();
-    } else {
-        // Redireciona com mensagem de erro
-        header("Location: cadastro_aluno.html?status=error&message=" . urlencode($conexao->error));
-        exit();
+try {
+    $conexao = new mysqli($host, $usuario, $senha, $banco);
+    
+    // Verificar conexão
+    if ($conexao->connect_error) {
+        throw new Exception("Falha na conexão: " . $conexao->connect_error);
     }
 
-    // FechandoAConexão
-    $stmt->close();
-}
+    // Verifica se o formulário foi submetido
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Validação dos dados
+        if (empty($_POST['nome']) || empty($_POST['ra']) || empty($_POST['serie']) || 
+            empty($_POST['turma']) || empty($_POST['telefone'])) {
+            throw new Exception("Todos os campos são obrigatórios");
+        }
 
-$conexao->close();
+        // PegandoDadosDoFormulario com sanitização
+        $nome = $conexao->real_escape_string($_POST['nome']);
+        $ra = $conexao->real_escape_string($_POST['ra']);
+        $serie = $conexao->real_escape_string($_POST['serie']);
+        $turma = $conexao->real_escape_string($_POST['turma']);
+        $telefone = $conexao->real_escape_string($_POST['telefone']);
+
+        // Validação específica para RA (5 dígitos)
+        if (!preg_match('/^[0-9]{5}$/', $ra)) {
+            throw new Exception("RA deve conter exatamente 5 dígitos numéricos");
+        }
+
+        // Validação do telefone
+        if (!preg_match('/^\([0-9]{2}\)[0-9]{4,5}-[0-9]{4}$/', $telefone)) {
+            throw new Exception("Telefone deve estar no formato (xx)xxxx-xxxx ou (xx)xxxxx-xxxx");
+        }
+
+        // Prepara e executa a query
+        $sql = "INSERT INTO alunos (nome, ra, serie, turma, telefone) 
+                VALUES (?, ?, ?, ?, ?)";
+
+        $stmt = $conexao->prepare($sql);
+        if (!$stmt) {
+            throw new Exception("Erro na preparação da query: " . $conexao->error);
+        }
+
+        $stmt->bind_param("sssss", $nome, $ra, $serie, $turma, $telefone);
+
+        if ($stmt->execute()) {
+            header("Location: cadastro_aluno.html?status=success");
+            exit();
+        } else {
+            throw new Exception("Erro ao cadastrar: " . $stmt->error);
+        }
+    }
+} catch (Exception $e) {
+    // Log do erro (em produção, grave em um arquivo de log)
+    error_log($e->getMessage());
+    
+    // Redireciona com mensagem de erro
+    header("Location: cadastro_aluno.html?status=error&message=" . urlencode($e->getMessage()));
+    exit();
+} finally {
+    // Fechando conexões
+    if (isset($stmt)) $stmt->close();
+    if (isset($conexao)) $conexao->close();
+}
 ?>
