@@ -17,7 +17,8 @@ try {
     // Verifica se o formulário foi submetido
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST['nome']) || empty($_POST['ra']) || empty($_POST['serie']) || 
-            empty($_POST['turma']) || empty($_POST['telefone']) || empty($_POST['senha']) || empty($_POST['confirmar_senha'])) {
+            empty($_POST['turma']) || empty($_POST['telefone']) || empty($_POST['email']) ||
+            empty($_POST['senha']) || empty($_POST['confirmar_senha'])) {
             throw new Exception("Todos os campos são obrigatórios");
         }
         
@@ -26,6 +27,8 @@ try {
         $serie = $conexao->real_escape_string($_POST['serie']);
         $turma = $conexao->real_escape_string($_POST['turma']);
         $telefone = $conexao->real_escape_string($_POST['telefone']);
+        $email = $conexao->real_escape_string($_POST['email']);
+
         $senha_hash = password_hash($_POST['senha'], PASSWORD_DEFAULT);
 
         // conferir se o RA tem 7 digitos
@@ -70,15 +73,15 @@ try {
         }
 
         // Prepara e executa a query
-        $sql = "INSERT INTO alunos (nome, ra, serie, turma, telefone) 
-                VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO alunos (nome, ra, serie, turma, telefone, email, senha_hash) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $conexao->prepare($sql);
         if (!$stmt) {
             throw new Exception("Erro na preparação da query: " . $conexao->error);
         }
 
-        $stmt->bind_param("sssss", $nome, $ra, $serie, $turma, $telefone);
+        $stmt->bind_param("sssssss", $nome, $ra, $serie, $turma, $telefone, $email, $senha_hash);
 
         if ($stmt->execute()) {
             header("Location: cadastro_aluno.html?status=success");
