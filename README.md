@@ -24,4 +24,11 @@ página do cadastro do livro
     Editora
     Breve descrição do livro
 
+Pagina index
+    conferir se o usuario esta logado
+    oferecer login e senha ou cadastro
+    mostrar os livros que estão cadastrados
+    quando logado habilitar o botão para ver os dados do trocante
+    
+
 DRP01-pji310-grupo-006
