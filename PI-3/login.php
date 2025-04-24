@@ -21,15 +21,15 @@ try {
 
     if ($aluno && password_verify($senha, $aluno['senha_hash'])) {
         $_SESSION['aluno'] = $aluno['nome'];
-        header("Location: troca_livros.html");
+        header("Location: cadastro_livros.html");
         exit();
     } else {
-        header("Location: login.html?status=error&message=" . urlencode("RA ou senha inválidos."));
+        header("Location: error.html");
         exit();
     }
 } catch (Exception $e) {
     error_log("Erro no login: " . $e->getMessage());
-    header("Location: login.html?status=error&message=" . urlencode("Erro ao conectar com o banco."));
+    header("Location: error.html");
     exit();
 }
 ?>
