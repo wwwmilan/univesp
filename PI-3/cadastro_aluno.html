@@ -13,13 +13,13 @@
             color: #333;
             background-color: #f5f5f5;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            padding: 50px;
         }
         
         /* CSS principal da pagina */
         .container {
             max-width: 800px;
-            margin: 0 auto;
             background: #fff;
             padding: 20px;
             border-radius: 8px;
@@ -169,21 +169,21 @@
     </script>
 </head>
 <body>
-    <h1>Cadastro de Aluno</h1>
-    
-    <form action="cadastrar.php" method="post">
-        <fieldset>
-            <legend>Dados do Aluno</legend>
+    <div class="container">
+        <h1>Cadastro de Aluno</h1>
+        <form action="cadastrar.php" method="post">
+            <fieldset>
+                <legend>Dados do Aluno</legend>
             
-            <div>
-                <label for="nome">Nome completo:</label><br>
-                <input type="text" id="nome" name="nome" required>
-            </div>
+                <div>
+                    <label for="nome">Nome completo:</label><br>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
             
-            <div>
-                <label for="ra">Número de RA (7 digitos da sua matricula):</label><br>
-                <input type="text" id="ra" name="ra" required>
-            </div>
+                <div>
+                    <label for="ra">Número de RA (7 digitos da sua matricula):</label><br>
+                    <input type="text" id="ra" name="ra" required>
+                </div>
             
             <div>
                 <label for="serie">Qual seu ano?</label><br>
@@ -227,5 +227,6 @@
             </div>
         </fieldset>
     </form>
+    </div>
 </body>
 </html>
