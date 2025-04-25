@@ -158,10 +158,10 @@
         const status = urlParams.get('status');
         
         if(status === 'success') {
-            alert('Cadastro realizado com sucesso!');
             setTimeout(function() {
                 window.location.href = 'index.html';
-                }, 2000);
+                }, 1000);
+            alert('Cadastro realizado com sucesso!');
             window.history.replaceState({}, document.title, window.location.pathname);
         } else if(status === 'error') {
             const message = urlParams.get('message');
