@@ -9,3 +9,16 @@ CREATE TABLE alunos (
     senha_hash VARCHAR(255) NOT NULL,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE cadastroLivros (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    subtitulo VARCHAR(255),
+    autor VARCHAR(255) NOT NULL,
+    editora VARCHAR(255),
+    ano INT,
+    edicao VARCHAR(50),
+    isbn VARCHAR(20),
+    descricao TEXT,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
