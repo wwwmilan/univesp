@@ -3,15 +3,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include('conexao.php');
 
-$sql = "SELECT titulo, autor, data_cadastro FROM cadastroLivros ORDER BY data_cadastro DESC LIMIT 1";
+$sql = "SELECT titulo, autor, data_cadastro FROM cadastroLivros ORDER BY id DESC";
 $result = $conn->query($sql);
-
-$livro = null;
-if ($result && $result->num_rows > 0) {
-    $livro = $result->fetch_assoc();
-}
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -119,15 +112,62 @@ $conn->close();
   </div>
 
   <div class="conteudo-central">
-    <?php if ($livro): ?>
-      <h2><?php echo htmlspecialchars($livro['titulo']); ?></h2>
-      <p>Autor: <?php echo htmlspecialchars($livro['autor']); ?></p>
-      <p>Data de Criação: <?php echo htmlspecialchars($livro['data_criacao']); ?></p>
-    <?php else: ?>
-      <p>Nenhum livro cadastrado ainda.</p>
-    <?php endif; ?>
-  </div>
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Projeto Integrador III</title>
+  <style>
+    table {
+      margin: 50px auto;
+      border-collapse: collapse;
+      width: 50%;
+      font-family: Arial, sans-serif;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Data de Postagem</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php 
+      if ($result->num_rows > 0) {
+          while ($livro = $result->fetch_assoc()) {
+              echo "<tr>";
+              echo "<td>" . htmlspecialchars($livro['titulo']) . "</td>";
+              echo "<td>" . htmlspecialchars($livro['autor']) . "</td>";
+              echo "<td>" . date('d/m/y', strtotime($livro['data_cadastro'])) . "</td>";
+              echo "</tr>";
+          }
+      } else {
+          echo "<tr><td colspan='3'>Nenhum livro cadastrado</td></tr>";
+      }
+      ?>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <footer>
     Powered by DRP01-pji310-grupo-006
   </footer>

@@ -12,11 +12,11 @@ CREATE TABLE alunos (
 
 CREATE TABLE cadastroLivros (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    titulo VARCHAR(255) NOT NULL,
-    subtitulo VARCHAR(255),
+    titulo TEXT(255) NOT NULL,
+    subtitulo TEXT(255),
     autor VARCHAR(255) NOT NULL,
     editora VARCHAR(255),
-    ano INT,
+    ano INT(4),
     edicao VARCHAR(50),
     isbn VARCHAR(20),
     descricao TEXT,
