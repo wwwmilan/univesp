@@ -2,30 +2,70 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>error</title>
-    <meta http-equiv="refresh" content="3;url=index.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erro no Login</title>
+    <meta http-equiv="refresh" content="5;url=index.php">
     <style>
         body {
-            background-color: #f5f5f5;
-            color: #721c24;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             text-align: center;
-            padding-top: 100px;
         }
-        .mensagem {
-            background-color: #fff;
-            border: 1px solid #f1b0b7;
-            display: inline-block;
-            padding: 20px;
+        .error-container {
+            background-color: white;
+            padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+        h1 {
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #6c757d;
         }
     </style>
+    <script>
+        // Captura o parâmetro da URL para mensagem personalizada
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const reason = urlParams.get('reason');
+            const messageElement = document.getElementById('error-message');
+            
+            const messages = {
+                'empty_fields': 'Por favor, preencha todos os campos.',
+                'invalid_credentials': 'RA ou senha incorretos.',
+                'server_error': 'Erro no servidor. Tente novamente mais tarde.'
+            };
+            
+            if (reason && messages[reason]) {
+                messageElement.textContent = messages[reason];
+            }
+        });
+    </script>
 </head>
 <body>
-    <div class="mensagem">
-        <h1>Login ou senha errado!</h1>
-        <p>Você será redirecionado para a página inicial em 3 segundos...</p>
+    <div class="error-container">
+        <h1>Erro no Login</h1>
+        <p id="error-message">Ocorreu um erro ao tentar fazer login.</p>
+        <p>Você será redirecionado para a página de login em 5 segundos...</p>
+        <p>Se o redirecionamento não funcionar, <a href="index.php">clique aqui</a>.</p>
+        <div class="footer">
+            Powered by DRP01-pji310-grupo-006
+        </div>
     </div>
 </body>
 </html>

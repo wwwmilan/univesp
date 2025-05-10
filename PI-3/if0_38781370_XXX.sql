@@ -12,13 +12,15 @@ CREATE TABLE alunos (
 
 CREATE TABLE cadastroLivros (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    titulo TEXT(255) NOT NULL,
-    subtitulo TEXT(255),
-    autor VARCHAR(255) NOT NULL,
-    editora VARCHAR(255),
-    ano INT(4),
-    edicao VARCHAR(50),
+    titulo VARCHAR(100) NOT NULL,
+    subtitulo VARCHAR(100),
+    autor VARCHAR(100) NOT NULL,
+    editora VARCHAR(50),
+    ano INT,
+    edicao VARCHAR(20),
     isbn VARCHAR(20),
     descricao TEXT,
-    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id_aluno INT NOT NULL,
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_aluno) REFERENCES alunos(id)
 );
