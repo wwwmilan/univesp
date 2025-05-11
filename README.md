@@ -29,6 +29,16 @@ Pagina index
     oferecer login e senha ou cadastro
     mostrar os livros que estão cadastrados
     quando logado habilitar o botão para ver os dados do trocante
+
+inisciando acessibilidade
+    Navegação por Teclado e Foco
+    Textos Alternativos e ARIA
+    Tabela Acessível
+    Contraste de Cores
+    Meta Tags para Acessibilidade
+    Idioma e Direção do Texto
+    Pular para Conteúdo Principal
+    Validação de Formulário Acessível
     
 
 DRP01-pji310-grupo-006
