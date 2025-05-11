@@ -97,6 +97,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding-bottom: 10px;
             border-bottom: 2px solid var(--primary-color);
         }
+
+        /* teste navegção pelo teclado focus*/
+        :focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+        button:focus, input:focus {
+            box-shadow: 0 0 0 2px var(--primary-hover);
+        }
         
         .form-group {
             margin-bottom: 20px;

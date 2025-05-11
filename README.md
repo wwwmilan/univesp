@@ -31,12 +31,12 @@ Pagina index
     quando logado habilitar o botão para ver os dados do trocante
 
 inisciando acessibilidade
-    Navegação por Teclado e Foco
-    Textos Alternativos e ARIA
-    Tabela Acessível
-    Contraste de Cores
-    Meta Tags para Acessibilidade
-    Idioma e Direção do Texto
+    Navegação por Teclado e Foco (todas as paginas)
+    Textos Alternativos e ARIA (todas as paginas)
+    Tabela Acessível (cadastro aluno e cadastro livro)(troca livro?)
+    Contraste de Cores (todas as paginas)
+    Meta Tags para Acessibilidade (todas as paginas)
+    Idioma e Direção do Texto (todas as paginas)
     Pular para Conteúdo Principal
     Validação de Formulário Acessível
     
