@@ -9,10 +9,9 @@ $result_livros = $conn->query($sql_livros);
 ?>
 
 <!DOCTYPE html>
+
 <html lang="pt-BR" dir="ltr">
-    {
-    font-size: 100%; /* teste para o redimensionamento do navegador */
-}
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +25,10 @@ $result_livros = $conn->query($sql_livros);
             --text-color: #2d3748; /* Preto mais escuro */
             --border-color: #ddd;
             --focus-color: #0056b3;
+        }
+        
+        html {
+            font-size: 100%; /* teste para o redimensionamento do navegador  */
         }
         
         body {
