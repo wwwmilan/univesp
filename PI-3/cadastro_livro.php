@@ -78,6 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color: #f5f5f5;
             margin: 0;
             padding: 20px;
+            font-size: 1rem; /* teste para o redimensionamento do navegador  */
+        }
+        
+        html {
+            font-size: 100%; /* teste para o redimensionamento do navegador  */
         }
         
         .form-container {

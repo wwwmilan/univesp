@@ -36,6 +36,10 @@ $result_livros = $conn->query($sql_livros);
     --table-row-even: #f9f9f9;
     --table-row-hover: #f1f1f1;
 }
+        
+html {
+    font-size: 100%; /* teste para o redimensionamento do navegador  */
+}
 
 * {
     box-sizing: border-box;
@@ -58,6 +62,7 @@ body {
     margin: 0;
     padding: 0;
     color: var(--text-color);
+    font-size: 1rem; /* teste para o redimensionamento do navegador  */
     line-height: 1.6;
     display: flex;
     flex-direction: column;

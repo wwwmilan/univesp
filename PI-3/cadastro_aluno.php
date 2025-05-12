@@ -73,11 +73,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             --border-color: #ddd;
         }
         
+        html {
+            font-size: 100%; /* teste para o redimensionamento do navegador  */
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f5f5f5;
             margin: 0;
             padding: 20px;
+            font-size: 1rem; /* teste para o redimensionamento do navegador  */
         }
         
         .form-container {
