@@ -43,6 +43,15 @@ $result_livros = $conn->query($sql_livros);
     padding: 0;
 }
 
+/* teste navegção pelo teclado focus*/
+:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+button:focus, input:focus {
+    box-shadow: 0 0 0 2px var(--primary-hover);
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f5f5f5;

@@ -9,17 +9,20 @@ $result_livros = $conn->query($sql_livros);
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de biblioteca do Projeto Integrador III">
+    <meta name="theme-color" content="#3498db">
     <title>Biblioteca - Projeto Integrador III</title>
     <style>
         :root {
-            --primary-color: #3498db;
-            --primary-hover: #2980b9;
-            --text-color: #333;
+            --primary-color: #2c7be5; /* Azul com melhor contraste */
+            --primary-hover: #1a68d1;
+            --text-color: #2d3748; /* Preto mais escuro */
             --border-color: #ddd;
+            --focus-color: #0056b3;
         }
         
         body {
@@ -28,6 +31,23 @@ $result_livros = $conn->query($sql_livros);
             padding: 0;
             color: var(--text-color);
             line-height: 1.6;
+            background-color: #fff;
+        }
+        
+        /* Skip Link - Acessibilidade */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
         }
         
         /* Header */
@@ -38,15 +58,6 @@ $result_livros = $conn->query($sql_livros);
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        /* teste navegção pelo teclado focus*/
-        :focus {
-            outline: 2px solid var(--primary-color);
-            outline-offset: 2px;
-        }
-        button:focus, input:focus {
-            box-shadow: 0 0 0 2px var(--primary-hover);
         }
         
         .logo {
@@ -75,25 +86,56 @@ $result_livros = $conn->query($sql_livros);
             padding: 8px 15px;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.2s;
         }
         
         .login-form button:hover {
             background-color: var(--primary-hover);
         }
+        
         .register-link {
-            font-size: 12px; /* Tamanho reduzido (ajuste conforme necessário) */
-            margin-left: 10px; /* Espaçamento à esquerda */
-            white-space: nowrap; /* Evita quebra de linha */
+            font-size: 12px;
+            margin-left: 10px;
+            white-space: nowrap;
         }
 
         .register-link a {
-            color: var(--primary-color); /* Cor consistente com o tema */
-            text-decoration: none; /* Remove sublinhado padrão */
+            color: var(--primary-color);
+            text-decoration: none;
         }
 
         .register-link a:hover {
-            text-decoration: underline; /* Sublinhado ao passar o mouse */
-}
+            text-decoration: underline;
+        }
+        
+        /* Focus Styles - Melhorias para navegação por teclado */
+        :focus {
+            outline: 3px solid var(--focus-color);
+            outline-offset: 2px;
+        }
+        
+        button:focus, input:focus {
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            border-color: var(--focus-color);
+        }
+        
+        a:focus {
+            text-decoration: underline;
+            outline: none;
+        }
+        
+        /* Visually hidden - para elementos acessíveis apenas a leitores de tela */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
         
         /* Main Content */
         .main-content {
@@ -124,6 +166,12 @@ $result_livros = $conn->query($sql_livros);
             background-color: #f1f1f1;
         }
         
+        /* Links na tabela - melhor foco */
+        tr:focus-within {
+            background-color: #e9ecef;
+            outline: 2px solid var(--focus-color);
+        }
+        
         /* Rodapé */
         .footer {
             text-align: center;
@@ -141,39 +189,49 @@ $result_livros = $conn->query($sql_livros);
                 align-items: stretch;
                 gap: 8px;
             }
-}
+            
+            :focus {
+                outline-offset: 1px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Link para pular para conteúdo principal -->
+    <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
+    
     <header class="header">
         <div class="logo">Biblioteca - Projeto Integrador III</div>
         
-        <form class="login-form" action="autenticar.php" method="post">
-            <input type="text" name="ra" placeholder="RA" required maxlength="7">
-            <input type="password" name="senha" placeholder="Senha" required>
-            <button type="submit">Entrar</button>
-        <button type="submit">Entrar</button>
-        
-        <div class="register-link">
-            <a href="cadastro_aluno.php">Não é cadastrado? Clique aqui</a>
-        </div>
+        <form class="login-form" action="autenticar.php" method="post" aria-label="Formulário de login">
+            <label for="ra" class="sr-only">RA (Registro Acadêmico)</label>
+            <input type="text" id="ra" name="ra" placeholder="RA" required maxlength="7" aria-required="true">
+            
+            <label for="senha" class="sr-only">Senha</label>
+            <input type="password" id="senha" name="senha" placeholder="Senha" required aria-required="true">
+            
+            <button type="submit" aria-label="Entrar no sistema">Entrar</button>
+            
+            <div class="register-link">
+                <a href="cadastro_aluno.php" aria-label="Cadastrar novo aluno">Não é cadastrado? Clique aqui</a>
+            </div>
         </form>
     </header>
     
-    <div class="main-content">
+    <main id="main-content" class="main-content" tabindex="-1">
         <h2>Últimos Livros Cadastrados</h2>
-        <table>
+        <table aria-label="Últimos livros cadastrados">
             <thead>
                 <tr>
-                    <th>Título</th>
-                    <th>Autor</th>
-                    <th>Data de Cadastro</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col">Data de Cadastro</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if ($result_livros->num_rows > 0): ?>
                     <?php while ($livro = $result_livros->fetch_assoc()): ?>
-                        <tr>
+                        <tr tabindex="0" aria-label="Livro <?= htmlspecialchars($livro['titulo']) ?> de <?= htmlspecialchars($livro['autor']) ?>">
                             <td><?= htmlspecialchars($livro['titulo']) ?></td>
                             <td><?= htmlspecialchars($livro['autor']) ?></td>
                             <td><?= date('d/m/Y', strtotime($livro['data_cadastro'])) ?></td>
@@ -186,7 +244,7 @@ $result_livros = $conn->query($sql_livros);
                 <?php endif; ?>
             </tbody>
         </table>
-    </div>
+    </main>
     
     <footer class="footer">
         <p>Powered by DRP01-pji310-grupo-006</p>
