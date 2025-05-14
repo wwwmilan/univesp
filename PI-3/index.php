@@ -9,26 +9,38 @@ $result_livros = $conn->query($sql_livros);
 ?>
 
 <!DOCTYPE html>
-
 <html lang="pt-BR" dir="ltr">
-    
 <head>
+    <!-- Meta Tags Essenciais -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sistema de biblioteca do Projeto Integrador III">
-    <meta name="theme-color" content="#3498db">
+    
+    <!-- Meta Tags de Acessibilidade -->
+    <meta http-equiv="Content-Language" content="pt-BR">
+    <meta name="language" content="Portuguese">
+    <meta name="description" content="Sistema de biblioteca acessível do Projeto Integrador III">
+    <meta name="keywords" content="biblioteca, livros, acessível, projeto integrador">
+    <meta name="author" content="DRP01-pji310-grupo-006">
+    <meta name="robots" content="index, follow">
+    <meta name="revisit-after" content="7 days">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#2c7be5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a68d1" media="(prefers-color-scheme: dark)">
+    <meta name="supported-color-schemes" content="light dark">
+    
     <title>Biblioteca - Projeto Integrador III</title>
     <style>
         :root {
-            --primary-color: #2c7be5; /* Azul com melhor contraste */
+            --primary-color: #2c7be5;
             --primary-hover: #1a68d1;
-            --text-color: #2d3748; /* Preto mais escuro */
+            --text-color: #2d3748;
             --border-color: #ddd;
             --focus-color: #0056b3;
+            --base-font-size: 1rem;
         }
         
         html {
-            font-size: 100%; /* teste para o redimensionamento do navegador  */
+            font-size: 100%;
         }
         
         body {
@@ -36,31 +48,33 @@ $result_livros = $conn->query($sql_livros);
             margin: 0;
             padding: 0;
             color: var(--text-color);
-            font-size: 1rem; /* teste para o redimensionamento do navegador  */
             line-height: 1.6;
             background-color: #fff;
+            font-size: var(--base-font-size);
+            text-align: start;
         }
         
-        /* Skip Link - Acessibilidade */
+        /* Skip Link de acessibilidade para pular para a area principal */
         .skip-link {
             position: absolute;
             top: -40px;
             left: 0;
             background: #000;
             color: white;
-            padding: 8px;
+            padding: 0.5rem;
             z-index: 100;
             transition: top 0.3s;
+            font-size: 1rem;
         }
         
         .skip-link:focus {
             top: 0;
         }
         
-        /* Header */
+        
         .header {
             background-color: white;
-            padding: 15px 20px;
+            padding: 1rem 1.25rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
@@ -68,7 +82,7 @@ $result_livros = $conn->query($sql_livros);
         }
         
         .logo {
-            font-size: 24px;
+            font-size: 1.5rem;
             font-weight: bold;
             color: var(--primary-color);
         }
@@ -76,24 +90,26 @@ $result_livros = $conn->query($sql_livros);
         /* Login Form */
         .login-form {
             display: flex;
-            gap: 10px;
+            gap: 0.625rem;
             align-items: center;
         }
         
         .login-form input {
-            padding: 8px 12px;
+            padding: 0.5rem 0.75rem;
             border: 1px solid var(--border-color);
-            border-radius: 4px;
+            border-radius: 0.25rem;
+            font-size: 1rem;
         }
         
         .login-form button {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
+            padding: 0.5rem 0.9375rem;
+            border-radius: 0.25rem;
             cursor: pointer;
             transition: background-color 0.2s;
+            font-size: 1rem;
         }
         
         .login-form button:hover {
@@ -101,28 +117,29 @@ $result_livros = $conn->query($sql_livros);
         }
         
         .register-link {
-            font-size: 12px;
-            margin-left: 10px;
+            font-size: 0.75rem;
+            margin-left: 0.625rem;
             white-space: nowrap;
         }
 
         .register-link a {
             color: var(--primary-color);
             text-decoration: none;
+            font-size: inherit;
         }
 
         .register-link a:hover {
             text-decoration: underline;
         }
         
-        /* Focus Styles - Melhorias para navegação por teclado */
+        /* Focus */
         :focus {
-            outline: 3px solid var(--focus-color);
-            outline-offset: 2px;
+            outline: 0.1875rem solid var(--focus-color);
+            outline-offset: 0.125rem;
         }
         
         button:focus, input:focus {
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            box-shadow: 0 0 0 0.1875rem rgba(0, 123, 255, 0.25);
             border-color: var(--focus-color);
         }
         
@@ -131,7 +148,7 @@ $result_livros = $conn->query($sql_livros);
             outline: none;
         }
         
-        /* Visually hidden - para elementos acessíveis apenas a leitores de tela */
+        /* Visually hidden - esconder elementos e mostra nos eitores de telas*/
         .sr-only {
             position: absolute;
             width: 1px;
@@ -146,20 +163,26 @@ $result_livros = $conn->query($sql_livros);
         
         /* Main Content */
         .main-content {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 20px;
+            max-width: 62.5rem;
+            margin: 1.875rem auto;
+            padding: 0 1.25rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 1.25rem 0;
+            box-shadow: 0 0 0.625rem rgba(0,0,0,0.1);
+            font-size: 1rem;
         }
         
         th, td {
-            padding: 12px 15px;
+            padding: 0.75rem 0.9375rem;
             text-align: left;
             border-bottom: 1px solid var(--border-color);
         }
@@ -167,44 +190,64 @@ $result_livros = $conn->query($sql_livros);
         th {
             background-color: #f8f9fa;
             font-weight: 600;
+            font-size: 1rem;
         }
         
         tr:hover {
             background-color: #f1f1f1;
         }
         
-        /* Links na tabela - melhor foco */
         tr:focus-within {
             background-color: #e9ecef;
-            outline: 2px solid var(--focus-color);
+            outline: 0.125rem solid var(--focus-color);
         }
         
         /* Rodapé */
         .footer {
             text-align: center;
-            padding: 8px;
-            font-size: 12px;
+            padding: 0.5rem;
+            font-size: 0.75rem;
             color: #777;
             background-color: white;
             border-top: 1px solid var(--border-color);
         }
         
         /* Responsividade */
-        @media (max-width: 768px) {
+        @media (max-width: 48rem) {
             .login-form {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 8px;
+                gap: 0.5rem;
             }
             
             :focus {
-                outline-offset: 1px;
+                outline-offset: 0.0625rem;
+            }
+            
+            html {
+                font-size: 100%;
+            }
+            
+            .logo {
+                font-size: 1.25rem;
+            }
+            
+            .login-form input, 
+            .login-form button {
+                font-size: 1rem;
+            }
+        }
+        
+        /* implementar para telas maiores */
+        
+        @media screen and (min-width: 1200px) {
+            html {
+                font-size: 110%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Link para pular para conteúdo principal -->
     <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
     
     <header class="header">
@@ -212,10 +255,10 @@ $result_livros = $conn->query($sql_livros);
         
         <form class="login-form" action="autenticar.php" method="post" aria-label="Formulário de login">
             <label for="ra" class="sr-only">RA (Registro Acadêmico)</label>
-            <input type="text" id="ra" name="ra" placeholder="RA" required maxlength="7" aria-required="true">
+            <input type="text" id="ra" name="ra" placeholder="RA" required maxlength="7" aria-required="true" dir="ltr">
             
             <label for="senha" class="sr-only">Senha</label>
-            <input type="password" id="senha" name="senha" placeholder="Senha" required aria-required="true">
+            <input type="password" id="senha" name="senha" placeholder="Senha" required aria-required="true" dir="ltr">
             
             <button type="submit" aria-label="Entrar no sistema">Entrar</button>
             
@@ -241,7 +284,7 @@ $result_livros = $conn->query($sql_livros);
                         <tr tabindex="0" aria-label="Livro <?= htmlspecialchars($livro['titulo']) ?> de <?= htmlspecialchars($livro['autor']) ?>">
                             <td><?= htmlspecialchars($livro['titulo']) ?></td>
                             <td><?= htmlspecialchars($livro['autor']) ?></td>
-                            <td><?= date('d/m/Y', strtotime($livro['data_cadastro'])) ?></td>
+                            <td dir="ltr"><?= date('d/m/Y', strtotime($livro['data_cadastro'])) ?></td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
