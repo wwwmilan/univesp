@@ -46,7 +46,7 @@ $result_livros = $conn->query($sql_livros);
 }
         
 html {
-    font-size: 100%; /* teste para o redimensionamento do navegador  */
+    font-size: 100%;
 }
 
 * {
@@ -55,7 +55,7 @@ html {
     padding: 0;
 }
 
-/* Skip Link - Acessibilidade para pular para o conteudo principal*/
+/* Skip Link - Acessibilidade */
 .skip-link {
     position: absolute;
     top: -40px;
@@ -72,7 +72,7 @@ html {
     top: 0;
 }
 
-/* teste navegção pelo teclado focus*/
+/* Navegação por teclado */
 :focus {
     outline: 0.1875rem solid var(--focus-color);
     outline-offset: 0.125rem;
@@ -83,7 +83,7 @@ button:focus, input:focus, a:focus {
     border-color: var(--focus-color);
 }
 
-/* implementando elementos visualmente ocultos */
+/* Elementos visualmente ocultos */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -102,7 +102,7 @@ body {
     margin: 0;
     padding: 0;
     color: var(--text-color);
-    font-size: var(--base-font-size); /* teste para o redimensionamento do navegador  */
+    font-size: var(--base-font-size);
     line-height: 1.6;
     display: flex;
     flex-direction: column;
@@ -232,7 +232,7 @@ a:hover, a:focus {
     </style>
 </head>
 <body>
-    <!-- Skip Link para acessibilidade igual do index-->
+    <!-- Skip Link para acessibilidade -->
     <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
     
     <header class="header">
