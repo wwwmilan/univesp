@@ -23,6 +23,10 @@ $result_livros = $conn->query($sql_livros);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="pt-BR">
+    <meta name="description" content="Área do aluno - sistema de acessibilidade">
+    <meta name="theme-color" content="#3498db">
+    <meta name="color-scheme" content="light dark">
     <title>Área do Aluno</title>
     
   <style>
