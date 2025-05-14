@@ -39,6 +39,8 @@ $result_livros = $conn->query($sql_livros);
     --table-header-bg: #f2f2f2;
     --table-row-even: #f9f9f9;
     --table-row-hover: #f1f1f1;
+    --focus-color: #0056b3;
+    --base-font-size: 1rem;
 }
         
 html {
@@ -49,6 +51,19 @@ html {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+/* Skip Link - Acessibilidade para pular para o conteudo principal*/
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #000;
+    color: white;
+    padding: 0.5rem;
+    z-index: 100;
+    transition: top 0.3s;
+    font-size: 1rem;
 }
 
 /* teste navegção pelo teclado focus*/
@@ -218,6 +233,9 @@ tr:hover {
   </style>
 </head>
 <body>
+    <!-- Skip Link para acessibilidade igual do index-->
+    <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
+    
     <header class="header">
         <div class="user-info">
             <span class="user-greeting">Olá, <?= htmlspecialchars($aluno['nome']) ?></span>
