@@ -67,138 +67,210 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" dir="ltr">
 <head>
+    <!-- Meta Tags de Acessibilidade -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Livro</title>
+    <meta http-equiv="Content-Language" content="pt-BR">
+    <meta name="description" content="Formulário para cadastro de livros">
+    <meta name="theme-color" content="#3498db">
+    <meta name="color-scheme" content="light dark">
+    
+    <title>Cadastrar Livro - Biblioteca</title>
     <style>
+        :root {
+            --primary-color: #3498db;
+            --primary-hover: #2980b9;
+            --error-color: #e74c3c;
+            --success-color: #27ae60;
+            --text-color: #2d3748;
+            --border-color: #ddd;
+            --focus-color: #0056b3;
+            --base-font-size: 1rem;
+        }
+        
+        html {
+            font-size: 100%;
+        }
+
+        /* Skip Link - Acessibilidade */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: white;
+            padding: 0.5rem;
+            z-index: 100;
+            transition: top 0.3s;
+            font-size: 1rem;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        :focus {
+            outline: 0.1875rem solid var(--focus-color);
+            outline-offset: 0.125rem;
+        }
+
+        button:focus, input:focus, textarea:focus, select:focus {
+            box-shadow: 0 0 0 0.1875rem rgba(0, 123, 255, 0.25);
+            border-color: var(--focus-color);
+        }
+
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f5f5f5;
             margin: 0;
-            padding: 20px;
-            font-size: 1rem; /* teste para o redimensionamento do navegador  */
-        }
-        
-        html {
-            font-size: 100%; /* teste para o redimensionamento do navegador  */
+            padding: 1.25rem;
+            font-size: var(--base-font-size);
+            line-height: 1.6;
         }
         
         .form-container {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 30px;
+            max-width: 37.5rem;
+            margin: 1.875rem auto;
+            padding: 1.875rem;
             background-color: white;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            border-radius: 8px;
+            box-shadow: 0 0 0.9375rem rgba(0,0,0,0.1);
+            border-radius: 0.5rem;
         }
         
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
+        h1 {
+            color: var(--text-color);
+            margin-bottom: 1.25rem;
             text-align: center;
+            padding-bottom: 0.625rem;
+            border-bottom: 0.125rem solid var(--primary-color);
+            font-size: 1.5rem;
         }
 
-        /* teste navegção pelo teclado focus*/
-        :focus {
-            outline: 2px solid var(--primary-color);
-            outline-offset: 2px;
-        }
-        button:focus, input:focus {
-            box-shadow: 0 0 0 2px var(--primary-hover);
-        }
-        
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem;
         }
         
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            color: #444;
+            color: var(--text-color);
         }
         
         input[type="text"],
         input[type="number"],
         textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
+            padding: 0.625rem;
+            border: 0.0625rem solid var(--border-color);
+            border-radius: 0.25rem;
+            font-size: 1rem;
         }
         
         textarea {
-            min-height: 100px;
+            min-height: 6.25rem;
             resize: vertical;
         }
         
         button {
-            background-color: #3498db;
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 4px;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.25rem;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1rem;
             width: 100%;
             transition: background-color 0.3s;
         }
         
-        button:hover {
-            background-color: #2980b9;
+        button:hover, button:focus {
+            background-color: var(--primary-hover);
         }
         
         .error-message {
-            color: #e74c3c;
+            color: var(--error-color);
             background-color: #fdecea;
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
+            padding: 0.9375rem;
+            border-radius: 0.25rem;
+            margin-bottom: 1.25rem;
             text-align: center;
         }
         
         .success-message {
-            color: #27ae60;
+            color: var(--success-color);
             background-color: #e8f5e9;
-            padding: 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
+            padding: 0.9375rem;
+            border-radius: 0.25rem;
+            margin-bottom: 1.25rem;
             text-align: center;
         }
         
         .required-field::after {
             content: " *";
-            color: #e74c3c;
+            color: var(--error-color);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 0.9375rem;
+            font-size: 0.8125rem;
+            color: #777;
+            background-color: white;
+            border-top: 0.0625rem solid var(--border-color);
+            margin-top: 1.25rem;
+        }
+
+        @media (max-width: 48rem) {
+            .form-container {
+                padding: 1.25rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Cadastrar Novo Livro</h2>
+    <!-- Skip Link para acessibilidade -->
+    <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
+    
+    <main id="main-content" class="form-container" tabindex="-1">
+        <h1>Cadastrar Novo Livro</h1>
         
         <?php if (isset($_GET['error'])): ?>
-            <div class="error-message">
+            <div class="error-message" role="alert">
                 <?= htmlspecialchars(urldecode($_GET['error'])) ?>
             </div>
         <?php endif; ?>
         
-        <form method="post">
+        <form method="post" aria-label="Formulário de cadastro de livro">
             <div class="form-group">
                 <label for="titulo" class="required-field">Título</label>
-                <input type="text" id="titulo" name="titulo" required>
+                <input type="text" id="titulo" name="titulo" required aria-required="true">
             </div>
             
             <div class="form-group">
                 <label for="subtitulo">Subtítulo</label>
-                <input type="text" id="subtitulo" name="subtitulo">
+                <input type="text" id="subtitulo" name="subtitulo" aria-describedby="subtitulo-help">
+                <span id="subtitulo-help" class="sr-only">Campo opcional para subtítulo do livro</span>
             </div>
             
             <div class="form-group">
                 <label for="autor" class="required-field">Autor</label>
-                <input type="text" id="autor" name="autor" required>
+                <input type="text" id="autor" name="autor" required aria-required="true">
             </div>
             
             <div class="form-group">
@@ -208,7 +280,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <div class="form-group">
                 <label for="ano">Ano de Publicação</label>
-                <input type="number" id="ano" name="ano" min="1000" max="<?= date('Y') ?>">
+                <input type="number" id="ano" name="ano" min="1000" max="<?= date('Y') ?>" 
+                       aria-describedby="ano-help">
+                <span id="ano-help" class="sr-only">Digite o ano com 4 dígitos</span>
             </div>
             
             <div class="form-group">
@@ -218,17 +292,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <div class="form-group">
                 <label for="isbn">ISBN</label>
-                <input type="text" id="isbn" name="isbn">
+                <input type="text" id="isbn" name="isbn" aria-describedby="isbn-help">
+                <span id="isbn-help" class="sr-only">Código ISBN do livro (opcional)</span>
             </div>
             
             <div class="form-group">
                 <label for="descricao">Descrição</label>
-                <textarea id="descricao" name="descricao"></textarea>
+                <textarea id="descricao" name="descricao" aria-describedby="descricao-help"></textarea>
+                <span id="descricao-help" class="sr-only">Descrição opcional sobre o livro</span>
             </div>
             
-            <button type="submit">Cadastrar Livro</button>
+            <button type="submit" aria-label="Cadastrar livro">Cadastrar Livro</button>
         </form>
-    </div>
+    </main>
+    
     <footer class="footer">
         <p>Powered by DRP01-pji310-grupo-006</p>
     </footer>
