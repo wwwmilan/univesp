@@ -186,17 +186,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             min-height: 6.25rem;
             resize: vertical;
         }
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
         
-        button {
+        .button {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+        }
+        
+        .submit-button {
             background-color: var(--primary-color);
             color: white;
-            border: none;
-            padding: 0.75rem 1.25rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            font-size: 1rem;
-            width: 100%;
-            transition: background-color 0.3s;
+        }
+        
+        .submit-button:hover, .submit-button:focus {
+            background-color: var(--primary-hover);
+        }
+        
+        .cancel-button {
+            background-color: #95a5a6;
+            color: white;
+        }
+        
+        .cancel-button:hover, .cancel-button:focus {
+            background-color: #7f8c8d;
         }
         
         button:hover, button:focus {
@@ -301,8 +324,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <textarea id="descricao" name="descricao" aria-describedby="descricao-help"></textarea>
                 <span id="descricao-help" class="sr-only">Descrição opcional sobre o livro</span>
             </div>
-            
-            <button type="submit" aria-label="Cadastrar livro">Cadastrar Livro</button>
+    
+    <form method="post" aria-label="Formulário de cadastro de livro">
+        
+        <div class="button-container">
+            <button type="submit" class="button submit-button" aria-label="Cadastrar livro">Cadastrar Livro</button>
+            <a href="trocalivros.php" class="button cancel-button" aria-label="Cancelar e voltar para a lista de livros">Cancelar</a>
+        </div>
+    </form>
         </form>
     </main>
     
